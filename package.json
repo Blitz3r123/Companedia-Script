@@ -1,0 +1,11 @@
+{
+  "name": "wikipedia-scraper",
+  "version": "1.0.0",
+  "description": "Web scraper for wikipedia intended for company research.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kaleem Peeroo",
+  "license": "ISC"
+}
