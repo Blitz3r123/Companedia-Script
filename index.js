@@ -7,27 +7,28 @@ function scrape(html){
 	var pageTitle = $('.firstHeading').text();
 	var logosrc = $('a.image img').attr('src');
 	var companyType = $('td.category a').attr('title');
-	var paragraphs = [];
 	var table = [];
-
-	$('p').each(function(i, element){
-		var paragraph = $(this).text();
-		paragraphs.push(paragraph);
-	});
 
 	$('table.infobox.vcard tbody').each(function(i, element){
 		$(this).children().each(function(i, element){
 			var th = $(this).children('th');
 			var td = $(this).children('td');
-			table.push(th.text() + " : " + td.text());
+			(th.text() !== '') && (td.text() !== '') ?  table.push(th.text() + " : " + td.text()) : console.log("th text and td text empty");
 		});
+	});
+
+	var contents = [];
+
+	$('#toc ul li a').each(function(i, element){
+		contents.push($(this).text());
 	});
 
 	return {
 		"pageTitle" : pageTitle,
-		"logosrc" : logosrc,
+		"logosrc" : wikiLink + logosrc,
 		"companyType" : companyType,
-		"table" : table
+		"table" : table,
+		"contents" : contents
 	};
 }
 
