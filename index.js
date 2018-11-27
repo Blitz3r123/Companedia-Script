@@ -7,8 +7,11 @@ function scrape(html){
 	var pageTitle = $('.firstHeading').text();
 	var logosrc = $('a.image img').attr('src');
 	var companyType = $('td.category a').attr('title');
+	var introduction = $('#mw-content-text p').eq(1).text() + " " + $('#mw-content-text p').eq(2).text();
 	var table = [];
+	var contents = [];
 
+	// Getting data for table array
 	$('table.infobox.vcard tbody').each(function(i, element){
 		$(this).children().each(function(i, element){
 			var th = $(this).children('th');
@@ -16,9 +19,7 @@ function scrape(html){
 			(th.text() !== '') && (td.text() !== '') ?  table.push(th.text() + " : " + td.text()) : console.log("th text and td text empty");
 		});
 	});
-
-	var contents = [];
-
+	// Getting data for content array
 	$('#toc ul li a').each(function(i, element){
 		contents.push($(this).text());
 	});
@@ -28,11 +29,12 @@ function scrape(html){
 		"logosrc" : wikiLink + logosrc,
 		"companyType" : companyType,
 		"table" : table,
-		"contents" : contents
+		"contents" : contents,
+		"introduction" : introduction
 	};
 }
 
-var companyName = 'IBM';
+var companyName = 'google';
 var wikiLink = 'https://en.wikipedia.org/wiki/';
 
 request(wikiLink + companyName, (error, response, html) => {
